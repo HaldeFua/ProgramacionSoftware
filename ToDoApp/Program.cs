@@ -1,7 +1,18 @@
+using Microsoft.EntityFrameworkCore;
+using ToDoApp.Data;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+// Tomamos el string de conexión de la configuración
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+
+// Add Entity Framework Core with SQL Server
+builder.Services.AddDbContext<ToDoAppContext>(options =>
+    options.UseSqlServer(connectionString));
+
 
 var app = builder.Build();
 
