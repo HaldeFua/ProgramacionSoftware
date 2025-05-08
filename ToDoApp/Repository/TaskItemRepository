@@ -1,13 +1,14 @@
 using ToDoApp.Data;
-using ToDoApp.Mdodels;
+using ToDoApp.Models;
 using Microsoft.EntityFrameworkCore;
-
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace ToDoApp.Repository
 {
     public interface ITaskItemRepository
     {
-        List<TaskItem> GetAllTaskItems();
+        Task<List<TaskItem>> GetAllTaskItemsAsync();
 
     }
 
@@ -15,14 +16,14 @@ namespace ToDoApp.Repository
     {
         private readonly ToDoAppContext _context;
 
-        public async TaskItemRepository(ToDoAppContext context)
+        public TaskItemRepository(ToDoAppContext context)
         {
             _context = context;
         }
 
-        public async list<TaskItem> GetAllTaskItems()
+        public async Task<List<TaskItem>> GetAllTaskItemsAsync()
         {
-            await return _context.TaskItem.Tolist();
+            return await _context.TaskItems.ToListAsync();
         }
 
 
