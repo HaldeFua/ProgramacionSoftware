@@ -8,8 +8,8 @@ namespace ToDoApp.Mapper
     {
         public MappingProfile()
         {
-            CreateMap<TaskItemCreate, TaskItemModel>();
-            CreateMap<TaskItemModel, TaskItemDetail>();
+            CreateMap<TaskItemCreate, TaskItem>();
+            CreateMap<TaskItem, TaskItemDetail>();
         }
     }
 

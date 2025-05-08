@@ -7,7 +7,7 @@ namespace ToDoApp.Data
     {
         public ToDoAppContext(DbContextOptions<ToDoAppContext> options) : base(options) { }
 
-        public DbSet<TaskItemModel> TaskItems { get; set; } = null!;
+        public DbSet<TaskItem> TaskItems { get; set; } = null!;
     }
 
 }

@@ -1,0 +1,30 @@
+using ToDoApp.Data;
+using ToDoApp.Mdodels;
+using Microsoft.EntityFrameworkCore;
+
+
+namespace ToDoApp.Repository
+{
+    public interface ITaskItemRepository
+    {
+        List<TaskItem> GetAllTaskItems();
+
+    }
+
+    public class TaskItemRepository : ITaskItemRepository
+    {
+        private readonly ToDoAppContext _context;
+
+        public async TaskItemRepository(ToDoAppContext context)
+        {
+            _context = context;
+        }
+
+        public async list<TaskItem> GetAllTaskItems()
+        {
+            await return _context.TaskItem.Tolist();
+        }
+
+
+    }
+}
