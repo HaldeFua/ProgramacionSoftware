@@ -6,8 +6,6 @@ namespace ToDoApp.Controllers
     using System.Threading.Tasks;
     using ToDoApp.Data;
 
-    [Route("api/[controller]")]
-    [ApiController]
     public class TaskItemController : Controller
     {
         private readonly ITaskItemServices _taskItemServices;
@@ -17,11 +15,17 @@ namespace ToDoApp.Controllers
             _taskItemServices = taskItemServices;
         }
 
-        [HttpGet]
-        public async Task<ActionResult<List<TaskItem>>> GetAllTaskItems()
+        public IActionResult Index()
         {
-            var taskItems = await _taskItemServices.GetAllTaskItemsAsync();
-            return Ok(taskItems);
+            return View();
         }
+
+        //GET: ToDo/Create
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+
     }
 }

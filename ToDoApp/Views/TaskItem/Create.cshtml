@@ -1,0 +1,23 @@
+@model ToDoApp.DTOs.TaskItemCreate
+@{
+    ViewData["Title"] = "Crear Tarea";
+}
+
+<h2>Crear nueva tarea</h2>
+
+<form asp-action="Create" method="post">
+    <div class="form-group">
+        <input asp-for="Title" class="form-control" placeholder="Escribe la tarea aquí" />
+        <span asp-validation-for="Title" class="text-danger"></span>
+    </div>
+
+    </br>
+    <button type="submit" class="btn btn-success">Guardar</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+</form>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

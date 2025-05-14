@@ -1,0 +1,39 @@
+﻿@model List<ToDoApp.DTOs.TaskItemDetail>
+
+@{
+    ViewData["Title"] = "Home Tarea";
+}
+
+<h1>Mis tareas</h1>
+
+<!-- Botón para crear una nueva tarea -->
+<div>
+    <a asp-controller="TaskItem" asp-action="Create" class="btn btn-primary mb-4">Crear tarea</a>
+</div>
+
+<!-- Sección de tareas -->
+<div class="row">
+    @if (Model != null && Model.Any())
+    {
+        foreach (var tarea in Model)
+        {
+            <div class="col-md-4 mb-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">@tarea.Title</h5>
+                        <p class="card-text">
+                            Estado: @(tarea.IsCompleted ? "Completada" : "Pendiente")<br />
+                            Creada: @tarea.CreatedAt.ToString("dd/MM/yyyy HH:mm")
+                        </p>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+        <div class="col-12">
+            <p class="text-muted">No hay tareas registradas.</p>
+        </div>
+    }
+</div>
