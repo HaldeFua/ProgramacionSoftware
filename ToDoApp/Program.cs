@@ -2,6 +2,8 @@ using Microsoft.EntityFrameworkCore;
 using ToDoApp.Data;
 using ToDoApp.Repository;
 using ToDoApp.Services;
+using ToDoApp.Mapper;
+using AutoMapper;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,6 +20,7 @@ builder.Services.AddDbContext<ToDoAppContext>(options =>
 builder.Services.AddAutoMapper(typeof(Program));
 builder.Services.AddScoped<ITaskItemRepository, TaskItemRepository>();
 builder.Services.AddScoped<ITaskItemServices, TaskItemServices>();
+builder.Services.AddScoped<IMapper, Mapper>();
 
 var app = builder.Build();
 

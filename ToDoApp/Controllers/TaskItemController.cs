@@ -5,19 +5,26 @@ namespace ToDoApp.Controllers
     using System.Collections.Generic;
     using System.Threading.Tasks;
     using ToDoApp.Data;
+    using ToDoApp.Mapper;
+    using AutoMapper;
+    using ToDoApp.DTOs;
 
     public class TaskItemController : Controller
     {
         private readonly ITaskItemServices _taskItemServices;
+        private readonly IMapper _mapper;
 
-        public TaskItemController(ITaskItemServices taskItemServices)
+        public TaskItemController(ITaskItemServices taskItemServices, IMapper mapper)
         {
             _taskItemServices = taskItemServices;
+            _mapper = mapper;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var taskItems = await _taskItemServices.GetAllTaskItemsAsync();
+            var taskItemsDTOs = _mapper.Map<List<TaskItemDetail>>(taskItems);
+            return View(taskItemsDTOs);
         }
 
         //GET: ToDo/Create
@@ -25,6 +32,7 @@ namespace ToDoApp.Controllers
         {
             return View();
         }
+
 
 
     }
