@@ -1,4 +1,5 @@
 ﻿@model List<ToDoApp.DTOs.TaskItemDetail>
+@using ToDoApp.Data;
 
 @{
     ViewData["Title"] = "Home Tarea";
@@ -12,19 +13,54 @@
 </div>
 
 <!-- Sección de tareas -->
-<div class="row">
+<div class="container">
     @if (Model != null && Model.Any())
     {
-        foreach (var tarea in Model)
+        foreach (var task in Model)
         {
-            <div class="col-md-4 mb-3">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">@tarea.Title</h5>
-                        <p class="card-text">
-                            <b>Creada:</b> @tarea.CreatedAt.ToString("dd/MM/yyyy \n HH:mm")
+            <div class="card mb-3 w-100">
+                <div class="card-body d-flex align-items-center justify-content-between gap-3 flex-wrap">
+
+                    <!-- Checkbox -->
+                    <div>
+                        <input type="checkbox" style="transform: scale(1.5);" />
+                    </div>
+
+                    <!-- Centro: Título, descripción y creación -->
+                    <div class="flex-grow-1">
+                        <h5 class="card-title mb-2">@task.Title?.ToUpper()</h5>
+                        <p class="card-text mb-1"><b>Descripción:</b> @task.Description</p>
+                        <p class="card-text"><b>Creada:</b> @task.CreatedAt.ToString("dd/MM/yyyy HH:mm")</p>
+                    </div>
+
+                    <!-- Derecha: Etiquetas -->
+                    <div class="d-flex flex-column text-end">
+                        <p class="mb-2">
+                            @switch (task.Priority)
+                            {
+                                case TaskPriority.High:
+                                    <span class="badge bg-danger">Alta</span>
+                                    break;
+                                case TaskPriority.Medium:
+                                    <span class="badge bg-warning">Media</span>
+                                    break;
+                                case TaskPriority.Low:
+                                    <span class="badge bg-success">Baja</span>
+                                    break;
+                            }
+                        </p>
+                        <p>
+                            @if (!task.IsCompleted)
+                            {
+                                <span class="badge bg-warning">Pendiente</span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-success">Completada</span>
+                            }
                         </p>
                     </div>
+
                 </div>
             </div>
         }
