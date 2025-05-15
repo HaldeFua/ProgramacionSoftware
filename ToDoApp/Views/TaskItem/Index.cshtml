@@ -22,8 +22,7 @@
                     <div class="card-body">
                         <h5 class="card-title">@tarea.Title</h5>
                         <p class="card-text">
-                            Estado: @(tarea.IsCompleted ? "Completada" : "Pendiente")<br />
-                            Creada: @tarea.CreatedAt.ToString("dd/MM/yyyy HH:mm")
+                            <b>Creada:</b> @tarea.CreatedAt.ToString("dd/MM/yyyy \n HH:mm")
                         </p>
                     </div>
                 </div>
