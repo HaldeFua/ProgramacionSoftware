@@ -12,6 +12,7 @@ public interface ITaskItemRepository
     Task<TaskItem> GetTaskItemByIdAsync(int id);
     Task UpdateTaskItemAsync(TaskItem taskItem);
     Task AddTaskItemAsync(TaskItem taskItem);
+    Task DeleteTaskItemAsync(int id);
 
 }
 
@@ -44,5 +45,15 @@ public class TaskItemRepository : ITaskItemRepository
     {
         await _context.TaskItems.AddAsync(taskItem);
         await _context.SaveChangesAsync();
+    }
+
+    public async Task DeleteTaskItemAsync(int id)
+    {
+        var taskItem = await GetTaskItemByIdAsync(id);
+        if (taskItem != null)
+        {
+            _context.TaskItems.Remove(taskItem);
+            await _context.SaveChangesAsync();
+        }
     }
 }

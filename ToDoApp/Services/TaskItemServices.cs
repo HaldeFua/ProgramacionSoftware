@@ -12,7 +12,8 @@ public interface ITaskItemServices
     Task<List<TaskItem>> GetAllTaskItemsAsync();
     Task<bool> UpdateTaskCompletionAsync(int id, bool isCompleted);
     Task<bool> CreateTaskItemAsync(TaskItem taskItem);
-
+    Task<TaskItem> GetTaskItemByIdAsync(int id);
+    Task<bool> DeleteTaskItemAsync(int id);
 }
 
 public class TaskItemServices : ITaskItemServices
@@ -46,6 +47,21 @@ public class TaskItemServices : ITaskItemServices
             return false;
 
         await _taskItemRepository.AddTaskItemAsync(taskItem);
+        return true;
+    }
+
+    public async Task<TaskItem> GetTaskItemByIdAsync(int id)
+    {
+        return await _taskItemRepository.GetTaskItemByIdAsync(id);
+    }
+
+    public async Task<bool> DeleteTaskItemAsync(int id)
+    {
+        var taskItem = await _taskItemRepository.GetTaskItemByIdAsync(id);
+        if (taskItem == null)
+            return false;
+
+        await _taskItemRepository.DeleteTaskItemAsync(id);
         return true;
     }
 

@@ -66,7 +66,17 @@ namespace ToDoApp.Controllers
         }
 
 
-
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var deleted = await _taskItemServices.DeleteTaskItemAsync(id);
+            if (!deleted)
+            {
+                return NotFound();
+            }
+            return Ok();
+        }
 
     }
 }
