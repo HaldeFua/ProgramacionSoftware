@@ -39,24 +39,24 @@
                             @switch (task.Priority)
                             {
                                 case TaskPriority.High:
-                                    <span class="badge bg-danger">Alta</span>
+                                    <span class="badge bg-danger">!!!</span>
                                     break;
                                 case TaskPriority.Medium:
-                                    <span class="badge bg-warning">Media</span>
+                                    <span class="badge bg-warning">!!</span>
                                     break;
                                 case TaskPriority.Low:
-                                    <span class="badge bg-success">Baja</span>
+                                    <span class="badge bg-success">!</span>
                                     break;
                             }
                         </p>
                         <p>
                             @if (!task.IsCompleted)
                             {
-                                <span class="badge bg-warning">Pendiente</span>
+                                <span class="badge bg-primary">Pendiente</span>
                             }
                             else
                             {
-                                <span class="badge bg-success">Completada</span>
+                                <span class="badge bg-secondary">Completada</span>
                             }
                         </p>
                     </div>

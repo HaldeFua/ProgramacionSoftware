@@ -6,12 +6,31 @@
 <h2>Crear nueva tarea</h2>
 
 <form asp-action="Create" method="post">
-    <div class="form-group">
+    <!-- Título -->
+    <div class="form-group mb-3">
+        <label asp-for="Title" class="form-label">Título</label>
         <input asp-for="Title" class="form-control" placeholder="Escribe la tarea aquí" />
         <span asp-validation-for="Title" class="text-danger"></span>
     </div>
 
-    </br>
+    <!-- Descripción -->
+    <div class="form-group mb-3">
+        <label asp-for="Description" class="form-label">Descripción</label>
+        <textarea asp-for="Description" class="form-control" rows="3"
+            placeholder="Agrega una descripción (opcional)"></textarea>
+        <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
+
+    <!-- Prioridad -->
+    <div class="form-group mb-4">
+        <label asp-for="Priority" class="form-label">Prioridad</label>
+        <select asp-for="Priority" asp-items="Html.GetEnumSelectList<ToDoApp.Data.TaskPriority>()" class="form-select">
+            <option value="">-- Selecciona una prioridad --</option>
+        </select>
+        <span asp-validation-for="Priority" class="text-danger"></span>
+    </div>
+
+    <!-- Botones -->
     <button type="submit" class="btn btn-success">Guardar</button>
     <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
 </form>

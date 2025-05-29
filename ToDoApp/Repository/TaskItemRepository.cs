@@ -11,6 +11,7 @@ public interface ITaskItemRepository
     Task<List<TaskItem>> GetAllTaskItemsAsync();
     Task<TaskItem> GetTaskItemByIdAsync(int id);
     Task UpdateTaskItemAsync(TaskItem taskItem);
+    Task AddTaskItemAsync(TaskItem taskItem);
 
 }
 
@@ -39,4 +40,9 @@ public class TaskItemRepository : ITaskItemRepository
         await _context.SaveChangesAsync();
     }
 
+    public async Task AddTaskItemAsync(TaskItem taskItem)
+    {
+        await _context.TaskItems.AddAsync(taskItem);
+        await _context.SaveChangesAsync();
+    }
 }

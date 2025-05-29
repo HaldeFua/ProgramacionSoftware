@@ -43,6 +43,27 @@ namespace ToDoApp.Controllers
             return Ok();
         }
 
+        [HttpPost]
+        public async Task<IActionResult> Create(TaskItemCreate dto)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(dto); // vuelve a la vista con los errores de validación
+            }
+
+            var task = new TaskItem
+            {
+                Title = dto.Title,
+                Description = dto.Description,
+                Priority = dto.Priority,
+                CreatedAt = DateTime.Now,
+                IsCompleted = false
+            };
+
+            await _taskItemServices.CreateTaskItemAsync(task);
+
+            return RedirectToAction("Index");
+        }
 
 
 
