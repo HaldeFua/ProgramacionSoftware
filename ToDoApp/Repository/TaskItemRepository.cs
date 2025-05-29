@@ -10,6 +10,8 @@ public interface ITaskItemRepository
 {
     Task<List<TaskItem>> GetAllTaskItemsAsync();
     Task<TaskItem> GetTaskItemByIdAsync(int id);
+    Task UpdateTaskItemAsync(TaskItem taskItem);
+
 }
 
 public class TaskItemRepository : ITaskItemRepository
@@ -29,6 +31,12 @@ public class TaskItemRepository : ITaskItemRepository
     public async Task<TaskItem> GetTaskItemByIdAsync(int id)
     {
         return await _context.TaskItems.FirstOrDefaultAsync(x => x.Id == id);
+    }
+
+    public async Task UpdateTaskItemAsync(TaskItem taskItem)
+    {
+        _context.TaskItems.Update(taskItem);
+        await _context.SaveChangesAsync();
     }
 
 }

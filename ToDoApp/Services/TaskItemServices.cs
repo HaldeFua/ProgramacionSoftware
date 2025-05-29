@@ -10,6 +10,9 @@ using ToDoApp.Data;
 public interface ITaskItemServices
 {
     Task<List<TaskItem>> GetAllTaskItemsAsync();
+
+    Task<bool> UpdateTaskCompletionAsync(int id, bool isCompleted);
+
 }
 
 public class TaskItemServices : ITaskItemServices
@@ -25,4 +28,16 @@ public class TaskItemServices : ITaskItemServices
     {
         return await _taskItemRepository.GetAllTaskItemsAsync();
     }
+
+    public async Task<bool> UpdateTaskCompletionAsync(int id, bool isCompleted)
+    {
+        var task = await _taskItemRepository.GetTaskItemByIdAsync(id);
+        if (task == null)
+            return false;
+
+        task.IsCompleted = isCompleted;
+        await _taskItemRepository.UpdateTaskItemAsync(task);
+        return true;
+    }
+
 }

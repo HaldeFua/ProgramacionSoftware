@@ -33,6 +33,18 @@ namespace ToDoApp.Controllers
             return View();
         }
 
+        [HttpPost]
+        public async Task<IActionResult> UpdateCompletion(int id, bool completed)
+        {
+            bool updated = await _taskItemServices.UpdateTaskCompletionAsync(id, completed);
+            if (!updated)
+                return NotFound();
+
+            return Ok();
+        }
+
+
+
 
 
     }
