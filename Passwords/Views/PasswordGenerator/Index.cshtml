@@ -1,0 +1,87 @@
+﻿@model Passwords.Models.PasswordGenerator
+
+<style>
+    .form-wrapper {
+        width: 100%;
+        max-width: 400px;
+        padding: 2rem;
+        border-radius: 0.5rem;
+        background-color: #f8f9fa;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .form-wrapper h2 {
+        text-align: center;
+        margin-bottom: 1rem;
+    }
+</style>
+
+<div class="d-flex justify-content-center align-items-center min-vh-100">
+    <div class="form-wrapper">
+        <h2>Generador de Contraseñas</h2>
+
+        <form method="post" asp-action="Generate">
+            <div class="mb-3">
+                <label class="form-label">Seleccione una Longitud</label>
+                <input asp-for="Length" type="number" min="4" max="128" class="form-control" />
+            </div>
+
+            <div class="form-check">
+                <input asp-for="IncludeUppercase" class="form-check-input" type="checkbox" />
+                <label class="form-check-label">Incluir mayúsculas</label>
+            </div>
+            <div class="form-check">
+                <input asp-for="IncludeLowercase" class="form-check-input" type="checkbox" />
+                <label class="form-check-label">Incluir minúsculas</label>
+            </div>
+            <div class="form-check">
+                <input asp-for="IncludeNumbers" class="form-check-input" type="checkbox" />
+                <label class="form-check-label">Incluir números</label>
+            </div>
+            <div class="form-check mb-3">
+                <input asp-for="IncludeSymbols" class="form-check-input" type="checkbox" />
+                <label class="form-check-label">Incluir símbolos</label>
+            </div>
+
+            <button type="submit" class="btn btn-primary w-100">Generar Contraseña</button>
+        </form>
+
+        @if (Model.GeneratedPassword != null)
+        {
+            <div class="alert alert-success mt-3 text-center">
+                <strong>Contraseña generada:</strong>
+
+                <div class="d-flex align-items-center border rounded mt-2 p-2" style="background-color: #f1f1f1;">
+                    <div class="flex-grow-1 text-center">
+                        <code id="generated-password" class="mb-0"
+                            style="font-size: 1.1rem;">@Model.GeneratedPassword</code>
+                    </div>
+                    <button type="button" class="btn btn-sm btn-outline-secondary ms-2" onclick="copyPassword()"
+                        title="Copiar contraseña">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                            class="bi bi-clipboard" viewBox="0 0 16 16">
+                            <path
+                                d="M10 1.5v1h1a1 1 0 0 1 1 1V3h1.5A1.5 1.5 0 0 1 15 4.5v9A1.5 1.5 0 0 1 13.5 15h-11A1.5 1.5 0 0 1 1 13.5v-9A1.5 1.5 0 0 1 2.5 3H4v-.5a1 1 0 0 1 1-1h1v1h4v-1h1a1 1 0 0 1 1 1z" />
+                            <path d="M5 1v1h6V1H5z" />
+                        </svg>
+                    </button>
+                </div>
+
+                <div id="copy-message" class="text-success mt-2" style="display: none;">¡Copiada al portapapeles!</div>
+            </div>
+        }
+
+
+    </div>
+</div>
+
+<script>
+    function copyPassword() {
+        const password = document.getElementById("generated-password").textContent;
+        navigator.clipboard.writeText(password).then(() => {
+            const message = document.getElementById("copy-message");
+            message.style.display = "block";
+            setTimeout(() => message.style.display = "none", 2000);
+        });
+    }
+</script>
