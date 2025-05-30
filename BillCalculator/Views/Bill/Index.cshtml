@@ -3,4 +3,27 @@
     ViewData["Title"] = "Calculadora de Propinas";
 }
 
-<h1> @ViewData["Title"] </h1>
+<h1>@ViewData["Title"]</h1>
+
+<form method="post" asp-action="Index">
+    <div class="mb-3">
+        <label for="BillAmount" class="form-label">Monto total de la cuenta</label>
+        <input asp-for="BillAmount" class="form-control" type="number" step="0.01" required />
+    </div>
+
+    <div class="mb-3">
+        <label for="TipPercentage" class="form-label">Porcentaje de propina (%)</label>
+        <input asp-for="TipPercentage" class="form-control" type="number" step="1" required />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Calcular</button>
+</form>
+
+@if (Model != null && Model.BillAmount > 0)
+{
+    <hr />
+    <h3><strong>Resultados:</strong></h3> <br>
+    <p><strong>Valor bruto:</strong> $@Model.BillAmount</p>
+    <p><strong>Propina:</strong> $@Model.TipAmount</p>
+    <p><strong>Total a pagar:</strong> $@Model.TotalAmount</p>
+}
